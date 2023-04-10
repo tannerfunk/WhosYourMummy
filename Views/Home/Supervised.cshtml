@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Predict a mummy's sex:</h1>
+
+    <form method="post" asp-action="Supervised">
+        @*div asp-validation-summary="All" class="text-danger"></div>*@
+        <h4>Name</h4>
+        <div class="form-group">
+            <input />
+            @*<label asp-for="Name">Name:</label><input asp-for="Name" class="form-control" />*@
+        </div>
+
+        <h4>Email</h4>
+        <div class="form-group">
+            <input />
+            @*<label asp-for="Email">Email:</label><input asp-for="Email" class="form-control" />*@
+        </div>
+
+        <h4>Address</h4>
+        <div class="form-group">
+            <input />
+            @*<label asp-for="AddressLine1">Address Line 1:</label><input asp-for="AddressLine1" class="form-control" />*@
+        </div>
+
+        <h4>City</h4>
+        <div class="form-group">
+            <input />
+        </div>
+
+        <div class="float-end">
+            <input class="btn btn-primary" type="submit" value="Predict" />
+        </div>
+
+    </form>
+    
+</div>
