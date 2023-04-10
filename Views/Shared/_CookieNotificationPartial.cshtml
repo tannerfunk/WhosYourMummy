@@ -1,0 +1,16 @@
+﻿
+@{
+    var showCookieNotification = !Context.Request.Cookies.ContainsKey("CookieConsent");
+}
+
+@if (showCookieNotification)
+{
+    <div id="cookie-notification" class="cookie-notification">
+        <p>
+            This website uses cookies to ensure you get the best experience on our website.
+
+            <a asp-controller="Home" asp-action="Privacy">Learn more</a>
+        </p>
+        <button id="cookie-accept-button">Accept</button>
+    </div>
+}
