@@ -18,6 +18,11 @@ namespace WhosYourMummy.Controllers
             return View();
         }
 
+        public IActionResult Burials()
+        {
+            return View();
+        }
+
         public IActionResult Supervised()
         {
             return View();
