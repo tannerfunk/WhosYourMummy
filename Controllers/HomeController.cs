@@ -6,6 +6,7 @@ using WhosYourMummy.Models;
 using WhosYourMummy.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using WhosYourMummy.Data;
 
 namespace WhosYourMummy.Controllers
 {
@@ -23,12 +24,31 @@ namespace WhosYourMummy.Controllers
 
         public IActionResult Burials()
         {
-            var x = new BurialmainsViewModel
+            var joinedData = from bm in repo.Burialmains
+                             join bmt in repo.BurialmainTextiles on bm.Id equals bmt.MainBurialmainid into bmtGroup
+                             from bmtLeft in bmtGroup.DefaultIfEmpty()
+                             join t in repo.Textiles on (bmtLeft != null ? bmtLeft.MainTextileid : -1) equals t.Id into tGroup
+                             from tLeft in tGroup.DefaultIfEmpty()
+                             select new BurialTextileData
+                             {
+                                 BurialId = bm.Id,
+                                 TextileBID = bmtLeft != null ? bmtLeft.MainBurialmainid : 0,
+                                 TextileId = tLeft != null ? tLeft.Id : 0,
+                                 TextileName = tLeft != null ? tLeft.Description : null,
+                                 Area = bm.Area,
+                                 Sex = bm.Sex
+                             };
+
+            var viewModel = new BurialTextileViewModel
             {
-                Burialmains = repo.Burialmains
+                JoinedData = joinedData.ToList()
             };
-            return View(x);
+
+            return View(viewModel);
         }
+
+
+
 
         public IActionResult Supervised()
         {

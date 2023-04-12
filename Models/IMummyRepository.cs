@@ -9,5 +9,9 @@ namespace WhosYourMummy.Models
     public interface IMummyRepository
     {
         IQueryable<Burialmain> Burialmains { get; }
+        IQueryable<BurialmainTextile> BurialmainTextiles { get; }
+        IQueryable<Textile> Textiles { get; }
+
+
     }
 }

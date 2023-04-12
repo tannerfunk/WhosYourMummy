@@ -1,6 +1,6 @@
-﻿@model BurialmainsViewModel
+﻿@*@model BurialmainsViewModel*@
 
-<table class="table table-striped table-bordered">
+@*<table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Burialid</th>
@@ -15,6 +15,35 @@
                 <td>@b.Id</td>
                 <td>@b.Sex</td>
                 <td>@b.Area</td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+@model BurialTextileViewModel
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Burial ID</th>
+            <th>TextileBurialID</th>
+            <th>Textile ID</th>
+            <th>Textile Name</th>
+            <th>Area</th>
+            <th>Sex</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.JoinedData)
+        {
+            <tr>
+                <td>@item.BurialId</td>
+                <td>@item.TextileBID</td>
+                <td>@item.TextileId</td>
+                <td>@item.TextileName</td>
+                <td>@item.Area</td>
+                <td>@item.Sex</td>
+
             </tr>
         }
     </tbody>

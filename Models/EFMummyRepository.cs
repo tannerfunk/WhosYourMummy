@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WhosYourMummy.Data;
+using WhosYourMummy.Models.ViewModels;
 
 namespace WhosYourMummy.Models
 {
@@ -15,6 +18,10 @@ namespace WhosYourMummy.Models
 
         public IQueryable<Burialmain> Burialmains => context.Burialmains;
 
+        public IQueryable<BurialmainTextile> BurialmainTextiles => context.BurialmainTextiles;
 
+        public IQueryable<Textile> Textiles => context.Textiles;
     }
+
+
 }
