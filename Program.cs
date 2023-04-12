@@ -10,13 +10,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 var connectionString2 = builder.Configuration.GetConnectionString("MummyConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddDbContext<MummyDbContext>(options =>
+builder.Services.AddDbContext<MummiesDbContext>(options =>
     options.UseNpgsql(connectionString2));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IMummyRepository, EFMummyRepository>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

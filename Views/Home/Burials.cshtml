@@ -1,38 +1,19 @@
 ﻿@model BurialmainsViewModel
 
-<body>
-    <div class="bg-dark text-white p-2">
-        <span class="navbar-brand m-lg-2">Burial Records</span>
-    </div>
-    <div class="row m-1 p-1">
-        <div id="types" class="col-3">
-            <div id="types" class="col-3">
-                <vc:types-view-components></vc:types-view-components>
-            </div>
-        </div>
-        <div class="col-9">
-            <div>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Burial ID</th>
-                                <th>Depth</th>
-                                <th>Preservation</th>
-                                <th>Burial Number</th>
-                                <th>Excavation Year</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (Burialmain b in Model.Burialmains)
-                            {
-                                <tr>@b.Depth</tr>
-                                <tr>@b.Sex</tr>
-                                <tr>@b.Ageatdeath</tr>
-                                <tr>@b.Headdirection</tr>
-                            }
-                        </tbody>
-                    </table>
-            </div>
-        </div>
-    </div>
-</body>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Burialmain b in Model.Burialmains)
+        {
+            <tr>
+                <td>@b.Sex</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -7,11 +7,11 @@ namespace WhosYourMummy.Models
 {
     public class EFMummyRepository : IMummyRepository
     {
-        private MummyDbContext context { get; set; }
+        private MummiesDbContext context { get; set; }
 
 
 
-        public EFMummyRepository(MummyDbContext temp) => context = temp;
+        public EFMummyRepository(MummiesDbContext temp) => context = temp;
 
         public IQueryable<Burialmain> Burialmains => context.Burialmains;
 

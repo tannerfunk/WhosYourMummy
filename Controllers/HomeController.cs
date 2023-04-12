@@ -16,13 +16,6 @@ namespace WhosYourMummy.Controllers
 
         public HomeController(IMummyRepository temp) => repo = temp;
 
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
             return View();
