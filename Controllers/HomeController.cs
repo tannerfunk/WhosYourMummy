@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using WhosYourMummy.Data;
 using WhosYourMummy.Models;
 
 namespace WhosYourMummy.Controllers
@@ -8,8 +9,11 @@ namespace WhosYourMummy.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly MummyDbContext _db;
+
+        public HomeController(ILogger<HomeController> logger, MummyDbContext db)
         {
+            _db = db;
             _logger = logger;
         }
 
@@ -20,7 +24,9 @@ namespace WhosYourMummy.Controllers
 
         public IActionResult Burials()
         {
-            return View();
+            IQueryable<Burialmain> burialmain = _db.burialmain.AsQueryable();
+
+            return View(burialmain);
         }
 
         public IActionResult Supervised()
