@@ -1,19 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WhosYourMummy.Data;
 using WhosYourMummy.Models;
+using WhosYourMummy.Models.ViewModels;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace WhosYourMummy.Controllers
 {
     public class HomeController : Controller
     {
+
+        private IMummyRepository repo;
+
+        public HomeController(IMummyRepository temp) => repo = temp;
+
         private readonly ILogger<HomeController> _logger;
 
-        private readonly MummyDbContext _db;
-
-        public HomeController(ILogger<HomeController> logger, MummyDbContext db)
+        public HomeController(ILogger<HomeController> logger)
         {
-            _db = db;
             _logger = logger;
         }
 
@@ -24,9 +30,11 @@ namespace WhosYourMummy.Controllers
 
         public IActionResult Burials()
         {
-            IQueryable<Burialmain> burialmain = _db.burialmain.AsQueryable();
-
-            return View(burialmain);
+            var x = new BurialmainsViewModel
+            {
+                Burialmains = repo.Burialmains
+            };
+            return View(x);
         }
 
         public IActionResult Supervised()

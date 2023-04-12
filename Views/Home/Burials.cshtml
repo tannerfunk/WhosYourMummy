@@ -1,4 +1,4 @@
-﻿@model IQueryable<Burialmain>
+﻿@model BurialmainsViewModel
 
 <body>
     <div class="bg-dark text-white p-2">
@@ -23,7 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (Burialmain b in Model.burialmain)
+                            @foreach (Burialmain b in Model.Burialmains)
                             {
                                 <tr>@b.Depth</tr>
                                 <tr>@b.Sex</tr>
