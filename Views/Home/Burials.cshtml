@@ -1,19 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Burials";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Burials</h1>
-</div>
-
-
-@model IQueryable<Burialmain>
+﻿@model IQueryable<Burialmain>
 
 <body>
     <div class="bg-dark text-white p-2">
         <span class="navbar-brand m-lg-2">Burial Records</span>
     </div>
-    <p>The data displayed below are records of various categories of information gathered about a collection of burials that have been uncovered. As you look through the data, you can filter in various ways to look for patterns, and click on each record for more information!</p>
     <div class="row m-1 p-1">
         <div id="types" class="col-3">
             <div id="types" class="col-3">
@@ -22,8 +12,6 @@
         </div>
         <div class="col-9">
             <div>
-                @foreach (Burialmain b in Model)
-                {
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -35,16 +23,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>@b.Depth</td>
-                                <td>@b.Sex</td>
-                                <td>@b.Ageatdeath</td>
-                                <td>@b.Headdirection</td>
-                       
-                            </tr>
+                            @foreach (Burialmain b in Model.burialmain)
+                            {
+                                <tr>@b.Depth</tr>
+                                <tr>@b.Sex</tr>
+                                <tr>@b.Ageatdeath</tr>
+                                <tr>@b.Headdirection</tr>
+                            }
                         </tbody>
                     </table>
-                }
             </div>
         </div>
     </div>
