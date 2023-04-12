@@ -3,16 +3,14 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
+            <th>Burialid</th>
         </tr>
     </thead>
     <tbody>
         @foreach (Burialmain b in Model.Burialmains)
         {
             <tr>
-                <td>@b.Sex</td>
+                <td>@b.Id</td>
             </tr>
         }
     </tbody>
