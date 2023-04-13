@@ -78,7 +78,6 @@ namespace WhosYourMummy.Controllers
         {
             if (ModelState.IsValid)
             {
-                //newBurialmain.Id = null;
                 context.Add(newBurialmain);
                 context.SaveChanges();
 
@@ -93,18 +92,39 @@ namespace WhosYourMummy.Controllers
         public IActionResult Edit(long id)
         {
             // Load the record with the specified id
-            return View(/* record */);
+            Burialmain burialMain = repo.Burialmains.FirstOrDefault(b => b.Id == id);
+
+            if (burialMain == null)
+            {
+                return NotFound();
+            }
+
+            return View(burialMain);
         }
 
         [HttpPost]
-        public IActionResult Edit(BurialTextileData model)
+        public IActionResult Edit(Burialmain editedBurialmain)
         {
             if (ModelState.IsValid)
             {
-                // Update the record in the database
+                Burialmain originalBurialmain = repo.Burialmains.FirstOrDefault(b => b.Id == editedBurialmain.Id);
+
+                if (originalBurialmain != null)
+                {
+                    originalBurialmain.Fieldbookexcavationyear = editedBurialmain.Fieldbookexcavationyear;
+                    originalBurialmain.Area = editedBurialmain.Area;
+                    originalBurialmain.Sex = editedBurialmain.Sex;
+                    // Update other fields as necessary
+
+                    repo.SaveChanges();
+                }
+
+                return RedirectToAction("Burials");
             }
-            return RedirectToAction("Burials");
+
+            return View(editedBurialmain);
         }
+
 
         public IActionResult Delete(long id)
         {

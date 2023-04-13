@@ -32,6 +32,11 @@ namespace WhosYourMummy.Models
             context.Remove(entity);
         }
 
+        public int SaveChanges()
+        {
+            return context.SaveChanges();
+        }
+
 
     }
 
