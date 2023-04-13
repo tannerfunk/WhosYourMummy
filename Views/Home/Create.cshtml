@@ -1,7 +1,34 @@
-﻿@model BurialTextileData
+﻿@model Burialmain
 
 <form asp-action="Create" method="post">
-    <!-- Your form fields -->
-    <button type="submit">Create</button>
+@*    <div class="form-group">
+        <label for="burialId">Burial ID:</label>
+        <input type="text" id="burialId" name="burialId" class="form-control" required>
+    </div>*@
+    <div class="form-group">
+        <label for="excavationYear">Excavation Year:</label>
+        <input type="text" id="excavationYear" name="excavationYear" class="form-control" required>
+    </div>
+@*    <div class="form-group">
+        <label for="textileId">Textile ID:</label>
+        <input type="text" id="textileId" name="textileId" class="form-control" required>
+    </div>*@
+  @*  <div class="form-group">
+        <label for="textileName">Textile Name:</label>
+        <input type="text" id="textileName" name="textileName" class="form-control" required>
+    </div>*@
+    <div class="form-group">
+        <label for="area">Area:</label>
+        <input type="text" id="area" name="area" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex" class="form-control" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Unknown">Unknown</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Record</button>
 </form>
 

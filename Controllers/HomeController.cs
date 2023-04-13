@@ -7,6 +7,8 @@ using WhosYourMummy.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using WhosYourMummy.Data;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace WhosYourMummy.Controllers
 {
@@ -62,20 +64,25 @@ namespace WhosYourMummy.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            return View(new Burialmain());
         }
 
+
         [HttpPost]
-        public IActionResult Create(BurialTextileData model)
+        public IActionResult Create(Burialmain newBurialmain)
         {
             if (ModelState.IsValid)
             {
-                // Save the new record to the database
-                //repo.Add(model);
-                //repo.SaveChanges();
+                repo.AddBurialmain(newBurialmain);
+                return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction("Burials");
+            else
+            {
+                return View(newBurialmain);
+            }
         }
+
+
 
         public IActionResult Edit(long id)
         {

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WhosYourMummy.Models
 {
     public partial class Burialmain
     {
-        public long Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; } = 0;
         public string? Squarenorthsouth { get; set; }
         public string? Headdirection { get; set; }
         public string? Sex { get; set; }

@@ -21,6 +21,27 @@ namespace WhosYourMummy.Models
         public IQueryable<BurialmainTextile> BurialmainTextiles => context.BurialmainTextiles;
 
         public IQueryable<Textile> Textiles => context.Textiles;
+
+        public void Add<T>(T entity) where T : class
+        {
+            context.Add(entity);
+        }
+
+        public void Remove<T>(T entity) where T : class
+        {
+            context.Remove(entity);
+        }
+
+        //public int SaveChanges()
+        //{
+        //    return context.SaveChanges();
+        //}
+
+        public void AddBurialmain(Burialmain burialmain)
+        {
+            context.Burialmains.Add(burialmain);
+            context.SaveChanges();
+        }
     }
 
 
