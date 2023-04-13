@@ -5,6 +5,9 @@ using WhosYourMummy.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+AddContentSecurityPolicy(builder);
+
+
 // Add services to the container.
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -36,6 +39,15 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 1;
 });
 
+static void AddContentSecurityPolicy(WebApplicationBuilder builder)
+{
+    builder.Services.Configure<ForwardedHeadersOptions>(options =>
+    {
+        options.KnownNetworks.Clear();
+        options.KnownProxies.Clear();
+    });
+}
+
 var app = builder.Build();
 
 
@@ -52,6 +64,13 @@ else
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+
+    // Add Content-Security-Policy middleware
+    app.Use(async (context, next) =>
+    {
+        context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'");
+        await next();
+    });
 }
 
 app.UseHttpsRedirection();
