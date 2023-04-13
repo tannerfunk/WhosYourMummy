@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using WhosYourMummy.Data;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using Microsoft.VisualBasic;
 
 namespace WhosYourMummy.Controllers
 {
@@ -17,8 +18,6 @@ namespace WhosYourMummy.Controllers
 
         private IMummyRepository repo;
         private MummiesDbContext context;
-
-        
 
         public HomeController(IMummyRepository temp, MummiesDbContext temp2) {
             repo = temp;
@@ -32,7 +31,7 @@ namespace WhosYourMummy.Controllers
             return View();
         }
 
-        public IActionResult Burials(int page = 1)
+        public IActionResult Burials(string sex, string year, string depth, string age, string head, string hair, string face, string wrap, string area, int page = 1)
         {
             int pageSize = 40; // Number of items per page
             int totalItems = repo.Burialmains.Count();
@@ -43,6 +42,16 @@ namespace WhosYourMummy.Controllers
                              from bmtLeft in bmtGroup.DefaultIfEmpty()
                              join t in repo.Textiles on (bmtLeft != null ? bmtLeft.MainTextileid : -1) equals t.Id into tGroup
                              from tLeft in tGroup.DefaultIfEmpty()
+                             where (bm.Sex == sex || sex == null)
+                                   && (bm.Fieldbookexcavationyear == year || year == null)
+                                   && (bm.Depth == depth || depth == null)
+                                   && (bm.Ageatdeath == age || age == null)
+                                   && (bm.Headdirection == head || head == null)
+                                   && (bm.Haircolor == hair || hair == null)
+                                   && (bm.Facebundles == face || face == null)
+                                   && (bm.Wrapping == wrap || wrap == null)
+                                   && (bm.Area == area || area == null)
+
                              select new BurialTextileData
                              {
                                  BurialId = bm.Id,
@@ -50,7 +59,14 @@ namespace WhosYourMummy.Controllers
                                  TextileId = tLeft != null ? tLeft.Id : 0,
                                  TextileName = tLeft != null ? tLeft.Description : null,
                                  Area = bm.Area,
-                                 Sex = bm.Sex
+                                 Sex = bm.Sex,
+                                 Depth = bm.Depth,
+                                 AgeatDeath = bm.Ageatdeath,
+                                 HeadDirection = bm.Headdirection,
+                                 Haircolor = bm.Haircolor,
+                                 FaceBundles = bm.Facebundles,
+                                 Wrapping = bm.Wrapping
+
                              };
 
             joinedData = joinedData.OrderByDescending(jd => !string.IsNullOrEmpty(jd.ExcavationYear) ? jd.ExcavationYear : "\uFFFF");

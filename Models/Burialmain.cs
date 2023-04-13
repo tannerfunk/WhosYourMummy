@@ -10,7 +10,6 @@ namespace WhosYourMummy.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-
         public string? Squarenorthsouth { get; set; }
         public string? Headdirection { get; set; }
         public string? Sex { get; set; }

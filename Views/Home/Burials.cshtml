@@ -1,20 +1,70 @@
 ﻿
 @model BurialTextileViewModel
+
+<form method="get" asp-action="Burials" class="form-inline">
+    <table class="table" border="1">
+        <tbody>
+            <tr>
+                <td><label for="year" class="mr-2">Excavation Year:</label></td>
+                <td><input type="text" name="year" id="year" class="form-control mr-3" /></td>
+
+                <td><label for="sex" class="mr-2">Sex:</label></td>
+                <td><input type="text" name="sex" id="sex" class="form-control mr-3" /></td>
+
+                <td><label for="depth" class="mr-2">Burial Depth:</label></td>
+                <td><input type="text" name="depth" id="depth" class="form-control mr-3" /></td>
+
+                <td><label for="age" class="mr-2">Age at Death:</label></td>
+                <td><input type="text" name="age" id="age" class="form-control mr-3" /></td>
+
+                <td><label for="area" class="mr-2">Area:</label></td>
+                <td><input type="text" name="area" id="area" class="form-control mr-3" /></td>
+            </tr>
+            <tr>
+                <td><label for="head" class="mr-2">Head Direction:</label></td>
+                <td><input type="text" name="head" id="head" class="form-control mr-3" /></td>
+
+                <td><label for="hair" class="mr-2">Hair Color:</label></td>
+                <td><input type="text" name="hair" id="hair" class="form-control mr-3" /></td>
+
+                <td><label for="face" class="mr-2">Face Bundle:</label></td>
+                <td><input type="text" name="face" id="face" class="form-control mr-3" /></td>
+
+                <td><label for="wrap" class="mr-2">Hair:</label></td>
+                <td><input type="text" name="hair" id="hair" class="form-control mr-3" /></td>
+
+                <td><label for="wrap" class="mr-2">Wrapping:</label></td>
+                <td><input type="text" name="wrap" id="wrap" class="form-control mr-3" /></td>
+
+                <td><button type="submit" class="btn btn-primary">Filter</button></td>
+            </tr>
+        </tbody>
+    </table>
+    
+</form>
+
 @if (User.Identity.IsAuthenticated)
 {
     <a asp-action="Create"><button class="btn btn-primary">Add a new burial</button></a>
 }
-
+<br/>
+<br/>
 
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Burial ID</th>
             <th>Excavation Year</th>
-            <th>Textile ID</th>
-            <th>Textile Name</th>
-            <th>Area</th>
             <th>Sex</th>
+            <th>Burial Depth</th>
+            <th>Age at Death</th>
+            <th>Head Direction</th>
+            <th>Hair Color</th>
+            <th>Face Bundles</th>
+            @*<th>Textile ID</th>
+            <th>Textile Name</th>*@
+            <th>Area</th>
+            <th>Wrapping</th>
         </tr>
     </thead>
     <tbody>
@@ -23,10 +73,17 @@
             <tr>
                 <td>@item.BurialId</td>
                 <td>@item.ExcavationYear</td>
-                <td>@item.TextileId</td>
-                <td>@item.TextileName</td>
-                <td>@item.Area</td>
                 <td>@item.Sex</td>
+                @*<td>@item.TextileId</td>
+                <td>@item.TextileName</td>*@
+                <td>@item.Depth</td>
+                <td>@item.AgeatDeath</td>
+                <td>@item.HeadDirection</td>
+                <td>@item.Haircolor</td>
+                <td>@item.FaceBundles</td>
+                <td>@item.Area</td>
+                <td>@item.Wrapping</td>
+                
                 @if (User.Identity.IsAuthenticated)
                 {
                 <td>
