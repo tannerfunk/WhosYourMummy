@@ -16,8 +16,12 @@ namespace WhosYourMummy.Controllers
     {
 
         private IMummyRepository repo;
+        private MummiesDbContext context;
 
-        public HomeController(IMummyRepository temp) => repo = temp;
+        public HomeController(IMummyRepository temp, MummiesDbContext temp2) {
+            repo = temp;
+            context = temp2;
+        }
 
         public IActionResult Index()
         {
@@ -62,6 +66,7 @@ namespace WhosYourMummy.Controllers
 
         //THIS BEGINS OUR CRUD STUFF
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View(new Burialmain());
@@ -69,17 +74,18 @@ namespace WhosYourMummy.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(Burialmain newBurialmain)
+        public IActionResult Create(Burialmain newBurialmain, long currentID)
         {
             if (ModelState.IsValid)
             {
-                repo.AddBurialmain(newBurialmain);
-                return RedirectToAction(nameof(Index));
+                //newBurialmain.Id = null;
+                context.Add(newBurialmain);
+                context.SaveChanges();
+
+                return RedirectToAction("Success");
             }
-            else
-            {
-                return View(newBurialmain);
-            }
+
+            return View(newBurialmain);
         }
 
 
@@ -109,7 +115,10 @@ namespace WhosYourMummy.Controllers
         //THIS ENDS OUR CRUD STUFF
 
 
-
+        public IActionResult Success()
+        {
+            return View();
+        }
         public IActionResult Supervised()
         {
             return View();

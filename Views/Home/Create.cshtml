@@ -1,34 +1,30 @@
 ﻿@model Burialmain
 
 <form asp-action="Create" method="post">
-@*    <div class="form-group">
-        <label for="burialId">Burial ID:</label>
-        <input type="text" id="burialId" name="burialId" class="form-control" required>
-    </div>*@
-    <div class="form-group">
-        <label for="excavationYear">Excavation Year:</label>
-        <input type="text" id="excavationYear" name="excavationYear" class="form-control" required>
-    </div>
-@*    <div class="form-group">
-        <label for="textileId">Textile ID:</label>
-        <input type="text" id="textileId" name="textileId" class="form-control" required>
-    </div>*@
-  @*  <div class="form-group">
-        <label for="textileName">Textile Name:</label>
-        <input type="text" id="textileName" name="textileName" class="form-control" required>
-    </div>*@
-    <div class="form-group">
-        <label for="area">Area:</label>
-        <input type="text" id="area" name="area" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="sex">Sex:</label>
-        <select id="sex" name="sex" class="form-control" required>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Unknown">Unknown</option>
-        </select>
-    </div>
+@*    <input asp-for="Id" type="hidden" />*@
+
+
+    <label asp-for="Fieldbookexcavationyear">Excavation Year:</label>
+    <input asp-for="Fieldbookexcavationyear" class="form-control" required />
+
+
+    <label asp-for="Area">Area:</label>
+    <input asp-for="Area" class="form-control" required />
+
+ 
+    <label asp-for="Sex">Sex:</label>
+    <select asp-for="Sex" class="form-control" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Unknown">Unknown</option>
+    </select>
+
     <button type="submit" class="btn btn-primary">Create Record</button>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
