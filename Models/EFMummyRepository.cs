@@ -32,16 +32,7 @@ namespace WhosYourMummy.Models
             context.Remove(entity);
         }
 
-        //public int SaveChanges()
-        //{
-        //    return context.SaveChanges();
-        //}
 
-        public void AddBurialmain(Burialmain burialmain)
-        {
-            context.Burialmains.Add(burialmain);
-            context.SaveChanges();
-        }
     }
 
 

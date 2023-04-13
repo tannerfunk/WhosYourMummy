@@ -392,7 +392,8 @@ namespace WhosYourMummy.Models
                 entity.ToTable("burialmain");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
+                    .UseIdentityAlwaysColumn()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Adultsubadult)
