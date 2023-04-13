@@ -6,9 +6,10 @@ using WhosYourMummy.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var authConnectString = builder.Configuration["ConnectionStrings:AuthLink"];
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(authConnectString));
+    options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 var connectionString2 = builder.Configuration.GetConnectionString("MummyConnection");
