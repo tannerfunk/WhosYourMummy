@@ -1,6 +1,27 @@
-﻿@model BurialTextileData
+﻿@model Burialmain
 
 <form asp-action="Edit" method="post">
-    <!-- Your form fields -->
-    <button type="submit">Save</button>
+    <input asp-for="Id" type="hidden" />
+
+    <label asp-for="Fieldbookexcavationyear">Excavation Year:</label>
+    <input asp-for="Fieldbookexcavationyear" class="form-control" required />
+
+    <label asp-for="Area">Area:</label>
+    <input asp-for="Area" class="form-control" required />
+
+    <label asp-for="Sex">Sex:</label>
+    <select asp-for="Sex" class="form-control" required>
+        <option value="Male">M</option>
+        <option value="Female">F</option>
+        <option value="Unknown">Unknown</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Update Record</button>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
