@@ -1,28 +1,7 @@
-﻿@*@model BurialmainsViewModel*@
-
-@*<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Burialid</th>
-            <th>Sex</th>
-            <th>Area</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Burialmain b in Model.Burialmains)
-        {
-            <tr>
-                <td>@b.Id</td>
-                <td>@b.Sex</td>
-                <td>@b.Area</td>
-            </tr>
-        }
-    </tbody>
-</table>*@
-
+﻿
 @model BurialTextileViewModel
 
-<a asp-action="Create">Add New Burial</a>
+<a asp-action="Create"><button class="btn btn-primary">Add a new burial</button></a>
 
 <table class="table table-striped table-bordered">
     <thead>
@@ -46,8 +25,8 @@
                 <td>@item.Area</td>
                 <td>@item.Sex</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.BurialId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.BurialId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.BurialId"><button class="btn btn-outline-primary text-dark">Edit</button></a>
+                    <a asp-action="Delete" asp-route-id="@item.BurialId"><button class="btn btn-danger btn-sm">Delete</button></a>
                 </td>
 
             </tr>

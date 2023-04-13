@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using WhosYourMummy.Data;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace WhosYourMummy.Controllers
 {
@@ -18,10 +20,14 @@ namespace WhosYourMummy.Controllers
         private IMummyRepository repo;
         private MummiesDbContext context;
 
+        
+
         public HomeController(IMummyRepository temp, MummiesDbContext temp2) {
             repo = temp;
             context = temp2;
         }
+
+   
 
         public IActionResult Index()
         {
@@ -67,6 +73,7 @@ namespace WhosYourMummy.Controllers
         //THIS BEGINS OUR CRUD STUFF
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View(new Burialmain());
@@ -74,6 +81,8 @@ namespace WhosYourMummy.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create(Burialmain newBurialmain, long currentID)
         {
             if (ModelState.IsValid)
@@ -88,7 +97,7 @@ namespace WhosYourMummy.Controllers
         }
 
 
-
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(long id)
         {
             // Load the record with the specified id
@@ -103,6 +112,8 @@ namespace WhosYourMummy.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(Burialmain editedBurialmain)
         {
             if (ModelState.IsValid)
@@ -125,10 +136,34 @@ namespace WhosYourMummy.Controllers
             return View(editedBurialmain);
         }
 
-
+        [Authorize(Roles = "Administrator")]
         public IActionResult Delete(long id)
         {
-            // Delete the record with the specified id
+            var burial = repo.Burialmains.FirstOrDefault(b => b.Id == id);
+
+            if (burial == null)
+            {
+                return NotFound();
+            }
+
+            return View(burial);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public IActionResult DeleteConfirmed(long id)
+        {
+            var burial = repo.Burialmains.FirstOrDefault(b => b.Id == id);
+
+            if (burial == null)
+            {
+                return NotFound();
+            }
+
+            repo.Remove(burial);
+            repo.SaveChanges();
+
             return RedirectToAction("Burials");
         }
 

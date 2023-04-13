@@ -18,7 +18,9 @@ builder.Services.AddDbContext<MummiesDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IMummyRepository, EFMummyRepository>();
@@ -35,6 +37,43 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    await SeedAdminUser(userManager, roleManager);
+}
+
+static async Task SeedAdminUser(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+{
+    // Check if there are any users already
+    if (!userManager.Users.Any())
+    {
+        // Create the Admin role if it doesn't exist
+        if (!await roleManager.RoleExistsAsync("Admin"))
+        {
+            var adminRole = new IdentityRole("Admin");
+            await roleManager.CreateAsync(adminRole);
+        }
+
+        // Create the first admin user
+        var adminUser = new IdentityUser
+        {
+            //UserName = "admin@example.com",
+            Email = "admin@example.com",
+            EmailConfirmed = true
+        };
+        var result = await userManager.CreateAsync(adminUser, "AdminAdminAdmin123456$$$"); // Use a strong password in production
+
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
+    }
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
