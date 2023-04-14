@@ -3,6 +3,17 @@ document.getElementById("submit").addEventListener("submit", function (event) {
     inputData();
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    var radioButtons = document.getElementsByClassName("radio-button");
+
+    for (var i = 0; i < radioButtons.length; i++) {
+        radioButtons[i].addEventListener("click", function () {
+            this.value = "1";
+        });
+    }
+});
+
+
 function inputData() {
     var squarenorthsouth_150 = parseFloat(document.getElementById('squarenorthsouth_150').value);
     var squarenorthsouth_160 = parseFloat(document.getElementById('squarenorthsouth_160').value);
