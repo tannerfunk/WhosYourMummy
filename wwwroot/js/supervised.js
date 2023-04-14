@@ -119,8 +119,18 @@ async function CallAPI(inputData) {
     var jsonString = JSON.stringify(inputData);
 
     try {
+
+        // Get the current hostname
+        const currentHostname = window.location.hostname;
+
+        // Set the target URL based on the current hostname
+        const targetUrl = currentHostname === "byufagelgamous.is404.net"
+            ? "https://byufagelgamous.is404.net/score"
+            : "https://intexwinners.is404.net/score";
+
+
         // send the POST request to the URL
-        var response = await fetch("https://intexwinners.is404.net/score", {
+        var response = await fetch(targetUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
