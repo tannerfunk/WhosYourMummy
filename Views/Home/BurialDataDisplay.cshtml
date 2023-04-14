@@ -1,17 +1,14 @@
-﻿@model BurialTextileData
+﻿@model Burialmain
 
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Burial Details</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
 </div>
 <div class="modal-body">
     <dl class="row">
         <dt class="col-sm-4">ID</dt>
-        <dd class="col-sm-8">@Model.BurialId</dd>
+        <dd class="col-sm-8">@Model.Id</dd>
         <dt class="col-sm-4">Excavation Year</dt>
-        <dd class="col-sm-8">@Model.ExcavationYear</dd>
+        <dd class="col-sm-8">@Model.Fieldbookexcavationyear</dd>
         <dt class="col-sm-4">Area</dt>
         <dd class="col-sm-8">@Model.Area</dd>
         <dt class="col-sm-4">Sex</dt>
@@ -19,6 +16,7 @@
         <!-- Add other fields as needed -->
     </dl>
 </div>
+
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-outline-secondary text-light"><a asp-action="Burials">Close</a></button>
 </div>
