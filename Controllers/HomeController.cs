@@ -188,6 +188,18 @@ namespace WhosYourMummy.Controllers
 
         //THIS ENDS OUR CRUD STUFF
 
+        public IActionResult BurialDataDisplay(long id)
+        {
+            // Load the record with the specified id
+            Burialmain burialMain = repo.Burialmains.FirstOrDefault(b => b.Id == id);
+
+            if (burialMain == null)
+            {
+                return NotFound();
+            }
+
+            return View(burialMain);
+        }
 
         public IActionResult Success()
         {
