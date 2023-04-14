@@ -71,7 +71,7 @@
         @foreach (var item in Model.JoinedData)
         {
             <tr>
-                <td>@item.BurialId</td>
+                <a asp-action="BurialDataDisplay" asp-route-id="@item.BurialId"><td>@item.BurialId</td> HELLO</a>
                 <td>@item.ExcavationYear</td>
                 <td>@item.Sex</td>
                 @*<td>@item.TextileId</td>
