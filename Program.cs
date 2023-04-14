@@ -49,7 +49,7 @@ builder.Services.AddCors();
 //    new InferenceSession("Models/model.onnx")
 //);
 builder.Services.AddSingleton(new InferenceSession(Path.Combine(env.ContentRootPath,
-    "Models", "model.onnx")));
+    "wwwroot", "model.onnx")));
 
 //_____________________________________________________________________
 var app = builder.Build();
