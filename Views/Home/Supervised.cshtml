@@ -2,653 +2,381 @@
     ViewData["Title"] = "Supervised";
 }
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - My ASP.NET Application</title>
+<style>
+    button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        button:hover {
+            background-color: #3e8e41;
+        }
+    .prediction-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 50%;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+    }
 
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    .prediction-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
+    .prediction-value {
+        font-size: 32px;
+        color: #4caf50;
+        font-weight: bold;
+    }
+</style>
+<section background-color: tan;>
+    <div class="container">
+        <div class="about-heading-content">
+            <div class="row">
+                <div class="col-xl-9 col-lg-10 mx-auto">
+                    <div class="bg-faded rounded p-5">
+                        <h2>Head Direction Prediction Form</h2>
+
+                        <form id="submit">
+
+                            @*//This is where we have the radio buttons for the different values that could be requried for the mummy
+                            We have been using ternary operators, and intiially set the values to 1
+                            *@
+
+                            <h3>Square North South:</h3>
+                            <label for="squarenorthsouth_150">
+                                <input type="radio" name="squarenorthsouth_150" id="squarenorthsouth_150" value="0" onclick="this.value='1';">150
+                            </label>
+                            <label for="squarenorthsouth_160">
+                                <input type="radio" name="squarenorthsouth_160" id="squarenorthsouth_160" value="0" onclick="this.value='1';">160
+                            </label>
+                            <label for="squarenorthsouth_190">
+                                <input type="radio" name="squarenorthsouth_190" id="squarenorthsouth_190" value="0" onclick="this.value='1';">190
+                            </label>
+                            <label for="squarenorthsouth_200">
+                                <input type="radio" name="squarenorthsouth_200" id="squarenorthsouth_200" value="0" onclick="this.value='1';">200
+                            </label>
+                            <label for="squarenorthsouth_Other">
+                                <input type="radio" name="squarenorthsouth_Other" id="squarenorthsouth_Other" value="0" onclick="this.value='1';">Other
+                            </label>
+
+                            <br />
+                            <br />
+
+                            <h3>Head Direction:</h3>
+                            <label for="headdirection_E">
+                                <input type="radio" name="headdirection_E" id="headdirection_E" value="0" onclick="this.value='1';">East
+                            </label>
+                            <label for="headdirection_Other">
+                                <input type="radio" name="headdirection_Other" id="headdirection_Other" value="0" onclick="this.value='1';">Other
+                            </label>
+                            <label for="headdirection_W">
+                                <input type="radio" name="headdirection_W" id="headdirection_W" value="0" onclick="this.value='1';">West
+                            </label>
+                            <br />
+                            <br />
+
+                            <h3>Sex:</h3>
+                            <label for="sex_F">
+                                <input type="radio" name="sex_F" id="sex_F" value="0" onclick="this.value='1';">Female
+                            </label>
+                            <label for="sex_F">
+                                <input type="radio" name="sex_M" id="sex_M" value="0" onclick="this.value='1';">Male
+                            </label>
+                            <br />
+                            <br />
+
+                            <h3>Adult or Subadult:</h3>
+                            <label for="adultsubadult_A">
+                                <input type="radio" name="adultsubadult_A" id="adultsubadult_A" value="0" onclick="this.value='1';">A
+                            </label>
+                            <label for="adultsubadult_C">
+                                <input type="radio" name="adultsubadult_C" id="adultsubadult_C" value="0" onclick="this.value='1';">C
+                            </label>
+                            <label for="adultsubadult_Other">
+                                <input type="radio" name="adultsubadult_Other" id="adultsubadult_Other" value="0" onclick="this.value='1';">Other
+                            </label>
+                            <br />
+                            <br />
+
+                            <h3>Preservation:</h3>
+                            <label for="preservation_W">
+                                <input type="radio" name="preservation_W" id="preservation_W" value="0" onclick="this.value='1';">W
+                            </label>
+                            <label for="preservation_poorly_preserved">
+                                <input type="radio" name="preservation_poorly_preserved" id="preservation_poorly_preserved" value="0" onclick="this.value='1';">Poorly preserved
+                            </label>
+                            <label for="preservation_wrapped">
+                                <input type="radio" name="preservation_wrapped" id="preservation_wrapped" value="0" onclick="this.value='1';">Wrapped
+                            </label>
+                            <br />
+                            <br />
+
+                            <h3>Square East West:</h3>
+                            <label for="squareeastwest_10">
+                                <input type="radio" name="squareeastwest_10" id="squareeastwest_10" value="0" onclick="this.value='1';">10
+                            </label>
+                            <label for="squareeastwest_20">
+                                <input type="radio" name="squareeastwest_20" id="squareeastwest_20" value="0" onclick="this.value='1';">20
+                            </label>
+                            <label for="squareeastwest_30">
+                                <input type="radio" name="squareeastwest_30" id="squareeastwest_30" value="0" onclick="this.value='1';">30
+                            </label>
+                            <label for="squareeastwest_40">
+                                <input type="radio" name="squareeastwest_40" id="squareeastwest_40" value="0" onclick="this.value='1';">40
+                            </label>
+                            <label for="squareeastwest_50">
+                                <input type="radio" name="squareeastwest_50" id="squareeastwest_50" value="0" onclick="this.value='1';">50
+                            </label>
+                            <br />
+                            <br />
+
+                            <h3>Hair Color:</h3>
+                            <label for="haircolor_B">
+                                <input type="radio" name="haircolor_B" id="haircolor_B" value="0" onclick="this.value='1';">B
+                            </label>
+                            <label for="haircolor_Other">
+                                <input type="radio" name="haircolor_Other" id="haircolor_Other" value="0" onclick="this.value='1';">Other
+                            </label>
+                            <br />
+                            <br />
+
+                            <h3>Samples Collected:</h3>
+                            <label for="samplescollected_false">
+                                <input type="radio" name="samplescollected_false" id="samplescollected_false" value="0" onclick="this.value='1';">False
+                            </label>
+                            <label for="samplescollected_true">
+                                <input type="radio" name="samplescollected_true" id="samplescollected_true" value="0" onclick="this.value='1';">True
+                            </label>
+                            <br />
+                            <br />
+
+                            <h3>Area:</h3>
+                            <label for="area_NW">
+                                <input type="radio" name="area_NW" id="area_NW" value="0" onclick="this.value='1';">NW
+                            </label>
+                            <label for="area_Other">
+                                <input type="radio" name="area_Other" id="area_Other" value="0" onclick="this.value='1';">Other
+                            </label>
+                            <label for="area_SE">
+                                <input type="radio" name="area_SE" id="area_SE" value="0" onclick="this.value='1';">SE
+                            </label>
+                            <label for="area_SW">
+                                <input type="radio" name="area_SW" id="area_SW" value="0" onclick="this.value='1';">SW
+                            </label>
+                            <br />
+                            <br />
+
+                            <h3>Age at Death:</h3>
+                            <label for="ageatdeath_A">
+                                <input type="radio" name="ageatdeath_A" id="ageatdeath_A" value="0" onclick="this.value='1';">A
+                            </label>
+                            <label for="ageatdeath_C">
+                                <input type="radio" name="ageatdeath_C" id="ageatdeath_C" value="0" onclick="this.value='1';">C
+                            </label>
+                            <label for="ageatdeath_I">
+                                <input type="radio" name="ageatdeath_I" id="ageatdeath_I" value="0" onclick="this.value='1';">I
+                            </label>
+                            <label for="ageatdeath_N">
+                                <input type="radio" name="ageatdeath_N" id="ageatdeath_N" value="0" onclick="this.value='1';">N
+                            </label>
+                            <label for="ageatdeath_Other">
+                                <input type="radio" name="ageatdeath_Other" id="ageatdeath_Other" value="0" onclick="this.value='1';">Other
+                            </label>
+                            <br />
+                            <br />
+
+                            <h3>Field Book Excavation Year:</h3>
+                            <label for="fieldbookexcavationyear_1987B">
+                                <input type="radio" name="fieldbookexcavationyear_1987B" id="fieldbookexcavationyear_1987B" value="0" onclick="this.value='1';">1987B
+                            </label>
+                            <label for="fieldbookexcavationyear_1994B">
+                                <input type="radio" name="fieldbookexcavationyear_1994B" id="fieldbookexcavationyear_1994B" value="0" onclick="this.value='1';">1994B
+                            </label>
+                            <label for="fieldbookexcavationyear_1998">
+                                <input type="radio" name="fieldbookexcavationyear_1998" id="fieldbookexcavationyear_1998" value="0" onclick="this.value='1';">1998
+                            </label>
+                            <label for="fieldbookexcavationyear_2005">
+                                <input type="radio" name="fieldbookexcavationyear_2005" id="fieldbookexcavationyear_2005" value="0" onclick="this.value='1';">2005
+                            </label>
+                            <label for="fieldbookexcavationyear_2009">
+                                <input type="radio" name="fieldbookexcavationyear_2009" id="fieldbookexcavationyear_2009" value="0" onclick="this.value='1';">2009
+                            </label>
+                            <label for="fieldbookexcavationyear_Other">
+                                <input type="radio" name="fieldbookexcavationyear_Other" id="fieldbookexcavationyear_Other" value="0" onclick="this.value='1';">Other
+                            </label>
+                            <br />
+                            <br />
+
+                            <div>
+                                <button type="submit" value="Submit" id="Submit">Submit</button>
+                            </div>
+                        </form>
+
+                        <div class="prediction-container">
+                            <div class="prediction-title">Predicted Value:</div>
+                            <div class="prediction-value" id="response"></div>
+                        </div>
 
 
-<div class="text-center">
-    <h1 class="display-4">Predict a Mummy's Wrapping Type:</h1>
-    <br /> 
-    <form id="myForm">
-        @Html.AntiForgeryToken()
+
+                        <script>
+                            document.getElementById("submit").addEventListener("submit", function (event) {
+                                event.preventDefault();
+                                inputData();
+                            });
+
+                            function inputData() {
+                                var squarenorthsouth_150 = parseFloat(document.getElementById('squarenorthsouth_150').value);
+                                var squarenorthsouth_160 = parseFloat(document.getElementById('squarenorthsouth_160').value);
+                                var squarenorthsouth_190 = parseFloat(document.getElementById('squarenorthsouth_190').value);
+                                var squarenorthsouth_200 = parseFloat(document.getElementById('squarenorthsouth_200').value);
+                                var squarenorthsouth_Other = parseFloat(document.getElementById('squarenorthsouth_Other').value);
+                                var headdirection_E = parseFloat(document.getElementById('headdirection_E').value);
+                                var headdirection_Other = parseFloat(document.getElementById('headdirection_Other').value);
+                                var headdirection_W = parseFloat(document.getElementById('headdirection_W').value);
+                                var sex_F = parseFloat(document.getElementById('sex_F').value);
+                                var sex_M = parseFloat(document.getElementById('sex_M').value);
+                                var depth_Other = 0;
+                                var eastwest_W = 0;
+                                var adultsubadult_A = parseFloat(document.getElementById('adultsubadult_A').value);
+                                var adultsubadult_C = parseFloat(document.getElementById('adultsubadult_C').value);
+                                var adultsubadult_Other = parseFloat(document.getElementById('adultsubadult_Other').value);
+                                var preservation_W = parseFloat(document.getElementById('preservation_W').value);
+                                var preservation_poorly_preserved = parseFloat(document.getElementById('preservation_poorly_preserved').value);
+                                var preservation_wrapped = parseFloat(document.getElementById('preservation_wrapped').value);
+                                var squareeastwest_10 = parseFloat(document.getElementById('squareeastwest_10').value);
+                                var squareeastwest_20 = parseFloat(document.getElementById('squareeastwest_20').value);
+                                var squareeastwest_30 = parseFloat(document.getElementById('squareeastwest_30').value);
+                                var squareeastwest_40 = parseFloat(document.getElementById('squareeastwest_40').value);
+                                var squareeastwest_50 = parseFloat(document.getElementById('squareeastwest_50').value);
+                                var text_Other = 0;
+                                var haircolor_B = parseFloat(document.getElementById('haircolor_B').value);
+                                var haircolor_Other = parseFloat(document.getElementById('haircolor_Other').value);
+                                var samplescollected_false = parseFloat(document.getElementById('samplescollected_false').value);
+                                var samplescollected_true = parseFloat(document.getElementById('samplescollected_true').value), samplesCollectedTrueValue;
+                                var area_NW = parseFloat(document.getElementById('area_NW').value);
+                                var area_Other = parseFloat(document.getElementById('area_Other').value), areaOtherValue;
+                                var area_SE = parseFloat(document.getElementById('area_SE').value);
+                                var area_SW = parseFloat(document.getElementById('area_SW').value);
+                                var length_Other = 0;
+                                var ageatdeath_A = parseFloat(document.getElementById('ageatdeath_A').value);
+                                var ageatdeath_C = parseFloat(document.getElementById('ageatdeath_C').value);
+                                var ageatdeath_I = parseFloat(document.getElementById('ageatdeath_I').value);
+                                var ageatdeath_N = parseFloat(document.getElementById('ageatdeath_N').value);
+                                var ageatdeath_Other = parseFloat(document.getElementById('ageatdeath_Other').value);
+                                var fieldbookexcavationyear_1987B = parseFloat(document.getElementById('fieldbookexcavationyear_1987B').value);
+                                var fieldbookexcavationyear_1994B = parseFloat(document.getElementById('fieldbookexcavationyear_1994B').value);
+                                var fieldbookexcavationyear_1998 = parseFloat(document.getElementById('fieldbookexcavationyear_1998').value);
+                                var fieldbookexcavationyear_2005 = parseFloat(document.getElementById('fieldbookexcavationyear_2005').value);
+                                var fieldbookexcavationyear_2009 = parseFloat(document.getElementById('fieldbookexcavationyear_2009').value);
+                                var fieldbookexcavationyear_Other = parseFloat(document.getElementById('fieldbookexcavationyear_Other').value);
 
 
-        @*//This is where we have the radio buttons for the different values that could be requried for the mummy
-            We have been using ternary operators, and intiially set the values to 1
-        *@
+                                const inputData = {
+                                    "squarenorthsouth_150": squarenorthsouth_150,
+                                    "squarenorthsouth_160": squarenorthsouth_160,
+                                    "squarenorthsouth_190": squarenorthsouth_190,
+                                    "squarenorthsouth_200": squarenorthsouth_200,
+                                    "squarenorthsouth_Other": squarenorthsouth_Other,
+                                    "headdirection_E": headdirection_E,
+                                    "headdirection_Other": headdirection_Other,
+                                    "headdirection_W": headdirection_W,
+                                    "sex_F": sex_F,
+                                    "sex_M": sex_M,
+                                    "depth_Other": depth_Other,
+                                    "eastwest_W": eastwest_W,
+                                    "adultsubadult_A": adultsubadult_A,
+                                    "adultsubadult_C": adultsubadult_C,
+                                    "adultsubadult_Other": adultsubadult_Other,
+                                    "preservation_W": preservation_W,
+                                    "preservation_poorly_preserved": preservation_poorly_preserved,
+                                    "preservation_wrapped": preservation_wrapped,
+                                    "squareeastwest_10": squareeastwest_10,
+                                    "squareeastwest_20": squareeastwest_20,
+                                    "squareeastwest_30": squareeastwest_30,
+                                    "squareeastwest_40": squareeastwest_40,
+                                    "squareeastwest_50": squareeastwest_50,
+                                    "text_Other": text_Other,
+                                    "haircolor_B": haircolor_B,
+                                    "haircolor_Other": haircolor_Other,
+                                    "samplescollected_false": samplescollected_false,
+                                    "samplescollected_true": samplescollected_true,
+                                    "area_NW": area_NW,
+                                    "area_Other": area_Other,
+                                    "area_SE": area_SE,
+                                    "area_SW": area_SW,
+                                    "length_Other": length_Other,
+                                    "ageatdeath_A": ageatdeath_A,
+                                    "ageatdeath_C": ageatdeath_C,
+                                    "ageatdeath_I": ageatdeath_I,
+                                    "ageatdeath_N": ageatdeath_N,
+                                    "ageatdeath_Other": ageatdeath_Other,
+                                    "fieldbookexcavationyear_1987B": fieldbookexcavationyear_1987B,
+                                    "fieldbookexcavationyear_1994B": fieldbookexcavationyear_1994B,
+                                    "fieldbookexcavationyear_1998": fieldbookexcavationyear_1998,
+                                    "fieldbookexcavationyear_2005": fieldbookexcavationyear_2005,
+                                    "fieldbookexcavationyear_2009": fieldbookexcavationyear_2009,
+                                    "fieldbookexcavationyear_Other": fieldbookexcavationyear_Other
+                                }
+                                CallAPI(inputData);
+                            }
 
-        <div class="radio-group">
-        <h3>Square North South:</h3>
-        <label><input type="radio" name="squarenorthsouth_150" value="1" onclick="this.value = this.checked ? '1' : '0';">150</label>
-        <label><input type="radio" name="squarenorthsouth_160" value="1" onclick="this.value = this.checked ? '1' : '0';">160</label>
-        <label><input type="radio" name="squarenorthsouth_190" value="1" onclick="this.value = this.checked ? '1' : '0';">190</label>
-        <label><input type="radio" name="squarenorthsouth_200" value="1" onclick="this.value = this.checked ? '1' : '0';">200</label>
-        <label><input type="radio" name="squarenorthsouth_Other" value="1" onclick="this.value = this.checked ? '1' : '0';">Other</label>
+                            console.log(inputData);
+
+
+
+                            async function CallAPI(inputData) {
+                                // serialize the JSON object to a string
+                                var jsonString = JSON.stringify(inputData);
+
+                                try {
+                                    // send the POST request to the URL
+                                    var response = await fetch("https://localhost:7046/score", {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: jsonString
+                                    });
+
+                                    // get the response content as a string
+                                    var responseString = await response.text();
+
+                                    // do something with the response
+                                    console.log(responseString);
+
+                                    let trimmedString = responseString.substring(19, responseString.length - 2);
+                                    //console.log(trimmedString);
+
+                                    document.getElementById("response").innerHTML = trimmedString
+                                } catch (error) {
+                                    // handle the exception
+                                    console.error(error);
+                                }
+                            }
+
+                        </script>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br />
-        <br />
-        <h3>Head Direction:</h3>
-        <label for="headdirection_E">
-            <span>East</span>
-            <input type="radio" name="headdirection_E" onclick="this.value = this.checked ? '1' : '0';" value="0">
-        </label>
-
-        <label for="headdirection_Other">
-            <span>Other</span>
-            <input type="radio" name="headdirection_Other" onclick="this.value = this.checked ? '1' : '0';" value="0">
-        </label>
-
-        <label for="headdirection_W">
-            <span>West</span>
-            <input type="radio" name="headdirection_W" onclick="this.value = this.checked ? '1' : '0';" value="0">
-        </label>
-        <br />
-        <br />
-
-        <h3>Sex:</h3>
-        <label><input type="radio" name="sex_F" value="1" onclick="this.value = this.checked ? '1' : '0';" >Female</label>
-        <label><input type="radio" name="sex_M" value="1" onclick="this.value = this.checked ? '1' : '0';">Male</label>
-        <br />
-        <br />
-
-       
-        <h3>Adult or Subadult:</h3>
-        <label><input type="radio" name="adultsubadult_A" value="1" onclick="this.value = this.checked ? '1' : '0';">A</label>
-        <label><input type="radio" name="adultsubadult_C" value="1" onclick="this.value = this.checked ? '1' : '0';">C</label>
-        <label><input type="radio" name="adultsubadult_Other" value="1" onclick="this.value = this.checked ? '1' : '0';">Other</label>
-        <br />
-        <br />
-
-      
-        <h3>Preservation:</h3>
-        <label><input type="radio" name="preservation_W" value="1" onclick="this.value = this.checked ? '1' : '0';">W</label>
-        <label><input type="radio" name="preservation_poorly_preserved" value="1" onclick="this.value = this.checked ? '1' : '0';">Poorly preserved</label>
-        <label><input type="radio" name="preservation_wrapped" value="1" onclick="this.value = this.checked ? '1' : '0';">Wrapped</label>
-        <br />
-        <br />
-        <h3>Square East West:</h3>
-        <label><input type="radio" name="squareeastwest_10" value="1" onclick="this.value = this.checked ? '1' : '0';">10</label>
-        <label><input type="radio" name="squareeastwest_20" value="1" onclick="this.value = this.checked ? '1' : '0';">20</label>
-        <label><input type="radio" name="squareeastwest_30" value="1" onclick="this.value = this.checked ? '1' : '0';">30</label>
-        <label><input type="radio" name="squareeastwest_40" value="1" onclick="this.value = this.checked ? '1' : '0';">40</label>
-        <label><input type="radio" name="squareeastwest_50" value="1" onclick="this.value = this.checked ? '1' : '0';">50</label>
-        <br />
-        <br />
-        
-        <h3>Hair Color:</h3>
-        <label><input type="radio" name="haircolor_B" value="1" onclick="this.value = this.checked ? '1' : '0';">B</label>
-        <label><input type="radio" name="haircolor_Other" value="1" onclick="this.value = this.checked ? '1' : '0';">Other</label>
-        <br />
-        <br />
-
-        <h3>Samples Collected:</h3>
-        <label><input type="radio" name="samplescollected_false" value="1" onclick="this.value = this.checked ? '1' : '0';">False</label>
-        <label><input type="radio" name="samplescollected_true" value="1" onclick="this.value = this.checked ? '1' : '0';">True</label>
-        <br />
-        <br />
-                            
-        <h3>Area:</h3>
-        <label><input type="radio" name="area_NW" value="1" onclick="this.value = this.checked ? 'area_NW' : '1'; '0'">NW</label>
-        <label><input type="radio" name="area_Other" value="1" onclick="this.value = this.checked ? 'area_Other' : '';">Other</label>
-        <label><input type="radio" name="area_SE" value="1" onclick="this.value = this.checked ? 'area_SE' : '';">SE</label>
-        <label><input type="radio" name="area_SW" value="1" onclick="this.value = this.checked ? 'area_SW' : '';">SW</label>
-        <br />
-        <br />
-                            
-        <h3>Age at Death:</h3>
-        <label><input type="radio" name="ageatdeath_A" value="1" onclick="this.value = this.checked ? 'ageatdeath_A' : '';">A</label>
-        <label><input type="radio" name="ageatdeath_C" value="1" onclick="this.value = this.checked ? 'ageatdeath_C' : '';">C</label>
-        <label><input type="radio" name="ageatdeath_I" value="1" onclick="this.value = this.checked ? 'ageatdeath_I' : '';">I</label>
-        <label><input type="radio" name="ageatdeath_N" value="1" onclick="this.value = this.checked ? 'ageatdeath_N' : '';">N</label>
-        <label><input type="radio" name="ageatdeath_Other" value="1" onclick="this.value = this.checked ? 'ageatdeath_Other' : '';">Other</label>
-        <br />
-        <br />
-       
-        <h3>Field Book Excavation Year:</h3>
-        <label><input type="radio" name="fieldbookexcavationyear_1987B" value="1" onclick="this.checked ? fieldbookexcavationyear = '1987B' : fieldbookexcavationyear = ''">1987B</label>
-        <label><input type="radio" name="fieldbookexcavationyear_1994B" value="1" onclick="this.checked ? fieldbookexcavationyear = '1994B' : fieldbookexcavationyear = ''">1994B</label>
-        <label><input type="radio" name="fieldbookexcavationyear_1998" value="1" onclick="this.checked ? fieldbookexcavationyear = '1998' : fieldbookexcavationyear = ''">1998</label>
-        <label><input type="radio" name="fieldbookexcavationyear_2005" value="1" onclick="this.checked ? fieldbookexcavationyear = '2005' : fieldbookexcavationyear = ''">2005</label>
-        <label><input type="radio" name="fieldbookexcavationyear_2009" value="1" onclick="this.checked ? fieldbookexcavationyear = '2009' : fieldbookexcavationyear = ''">2009</label>
-        <label><input type="radio" name="fieldbookexcavationyear_Other" value="1" onclick="this.checked ? fieldbookexcavationyear = 'Other' : fieldbookexcavationyear = ''">Other</label>
-        <br />
-        <br />
-
-        <button type="submit" class="btn btn-primary" onclick="submitForm()">Predict Wrapping Type</button>
-        <br />
-        <br />
-        <br />
-    <br />
-    
-    </form>
-
-</div>
-
-
-<script>
-
-    function submitForm() {
-
-        const myForm = document.getElementById('myForm');
-
-
-        // Assign each variable its corresponding value from the form
-        var squareNorthSouth150Value = myForm.elements['squarenorthsouth_150'].value;
-        var squareNorthSouth160Value = myForm.elements['squarenorthsouth_160'].value;
-        var squareNorthSouth190Value = myForm.elements['squarenorthsouth_190'].value;
-        var squareNorthSouth200Value = myForm.elements['squarenorthsouth_200'].value;
-        var squareNorthSouthOtherValue = myForm.elements['squarenorthsouth_Other'].value;
-        var headDirectionEValue = myForm.elements['headdirection_E'].value;
-        var headDirectionOtherValue = myForm.elements['headdirection_Other'].value;
-        var headDirectionWValue = myForm.elements['headdirection_W'].value;
-        var sexFValue = myForm.elements['sex_F'].value;
-        var sexMValue = myForm.elements['sex_M'].value;
-        var depthOtherValue = myForm.elements['depth_Other'].value;
-        var eastWestWValue = myForm.elements['eastwest_W'].value;
-        var adultSubadultAValue = myForm.elements['adultsubadult_A'].value;
-        var adultSubadultCValue = myForm.elements['adultsubadult_C'].value;
-        var adultSubadultOtherValue = myForm.elements['adultsubadult_Other'].value;
-        var preservationWValue = myForm.elements['preservation_W'].value;
-        var preservationPoorlyPreservedValue = myForm.elements['preservation_poorly_preserved'].value;
-        var preservationWrappedValue = myForm.elements['preservation_wrapped'].value;
-        var squareEastWest10Value = myForm.elements['squareeastwest_10'].value;
-        var squareEastWest20Value = myForm.elements['squareeastwest_20'].value;
-        var squareEastWest30Value = myForm.elements['squareeastwest_30'].value;
-        var squareEastWest40Value = myForm.elements['squareeastwest_40'].value;
-        var squareEastWest50Value = myForm.elements['squareeastwest_50'].value;
-        var textOtherValue = myForm.elements['text_Other'].value;
-        var hairColorBValue = myForm.elements['haircolor_B'].value;
-        var hairColorOtherValue = myForm.elements['haircolor_Other'].value;
-        var samplesCollectedFalseValue = myForm.elements['samplescollected_false'].value;
-        var samplesCollectedTrueValue = myForm.elements['samplescollected_true'].value;
-        var areaNWValue = myForm.elements['area_NW'].value;
-        var areaOtherValue = myForm.elements['area_Other'].value;
-        var areaSEValue = myForm.elements['area_SE'].value;
-        var areaSWValue = myForm.elements['area_SW'].value;
-        var lengthOtherValue = myForm.elements['length_Other'].value;
-        var ageatdeathAValue = myForm.elements['ageatdeath_A'].value;
-        var ageatdeathCValue = myForm.elements['ageatdeath_C'].value;
-        var ageatdeathIValue = myForm.elements['ageatdeath_I'].value;
-        var ageatdeathNValue = myForm.elements['ageatdeath_N'].value;
-        var ageatdeathOtherValue = myForm.elements['ageatdeath_Other'].value;
-        var fieldbookexcavationyear1987BValue = myForm.elements['fieldbookexcavationyear_1987B'].value;
-        var fieldbookexcavationyear1994BValue = myForm.elements['fieldbookexcavationyear_1994B'].value;
-        var fieldbookexcavationyear1998Value = myForm.elements['fieldbookexcavationyear_1998'].value;
-        var fieldbookexcavationyear2005Value = myForm.elements['fieldbookexcavationyear_2005'].value;
-        var fieldbookexcavationyear2009Value = myForm.elements['fieldbookexcavationyear_2009'].value;
-        var fieldbookexcavationyearOtherValue = myForm.elements['fieldbookexcavationyear_Other'].value;
-       
-
-        //Add text and other variables that need to be 0. Set them to 0
-        //textother
-        //depthother
-        //something else
-
-
-        if(squareNorthSouth150Value == 1) {
-            squareNorthSouth150Value = 1;
-        } else {
-            squareNorthSouth150Value = 0;
-        }
-
-        if (squareNorthSouth160Value == 1) {
-            squareNorthSouth160Value = 1;
-        } else {
-            squareNorthSouth160Value = 0;
-        }
-
-        if (squareNorthSouth190Value == 1) {
-            squareNorthSouth190Value = 1;
-        } else {
-            squareNorthSouth190Value = 0;
-        }
-
-        if (squareNorthSouth200Value == 1) {
-            squareNorthSouth200Value = 1;
-        } else {
-            squareNorthSouth200Value = 0;
-        }
-
-        if (squareNorthSouthOtherValue == 1) {
-            squareNorthSouthOtherValue = 1;
-        } else {
-            squareNorthSouthOtherValue = 0;
-        }
-
-        if (headDirectionEValue == 1) {
-            headDirectionEValue = 1;
-        } else {
-            headDirectionEValue = 0;
-        }
-
-        if (headDirectionOtherValue == 1) {
-            headDirectionOtherValue = 1;
-        } else {
-            headDirectionOtherValue = 0;
-        }
-
-        if (headDirectionWValue == 1) {
-            headDirectionWValue = 1;
-        } else {
-            headDirectionWValue = 0;
-        }
-
-        if (sexFValue == 1) {
-            sexFValue = 1;
-        } else {
-            sexFValue = 0;
-        }
-
-        if (sexMValue == 1) {
-            sexMValue = 1;
-        } else {
-            sexMValue = 0;
-        }
-
-        if (depthOtherValue == 1) {
-            depthOtherValue = 1;
-        } else {
-            depthOtherValue = 0;
-        }
-
-        if (eastWestWValue == 1) {
-            eastWestWValue = 1;
-        } else {
-            eastWestWValue = 0;
-        }
-
-        if (adultSubadultAValue == 1) {
-            adultSubadultAValue = 1;
-        } else {
-            adultSubadultAValue = 0;
-        }
-
-        if (adultSubadultCValue == 1) {
-            adultSubadultCValue = 1;
-        } else {
-            adultSubadultCValue = 0;
-        }
-
-        if (adultSubadultOtherValue == 1) {
-            adultSubadultOtherValue = 1;
-        } else {
-            adultSubadultOtherValue = 0;
-        }
-
-        if (preservationWValue == 1) {
-            preservationWValue = 1;
-        } else {
-            preservationWValue = 0;
-        }
-
-        if (preservationPoorlyPreservedValue == 1) {
-            preservationPoorlyPreservedValue = 1;
-        } else {
-            preservationPoorlyPreservedValue = 0;
-        }
-
-        if (preservationWrappedValue == 1) {
-            preservationWrappedValue = 1;
-        } else {
-            preservationWrappedValue = 0;
-        }
-
-        if (squareEastWest10Value == 1) {
-            squareEastWest10Value = 1;
-        } else {
-            squareEastWest10Value = 0;
-        }
-
-        if (squareEastWest20Value == 1) {
-            squareEastWest20Value = 1;
-        } else {
-            squareEastWest20Value = 0;
-        }
-
-        if (squareEastWest30Value == 1) {
-            squareEastWest30Value = 1;
-        } else {
-            squareEastWest30Value = 0;
-        }
-
-        if (squareEastWest50Value == 1) {
-            squareEastWest50Value = 1;
-        } else {
-            squareEastWest50Value = 0;
-        }
-
-        if (textOtherValue == 1) {
-            textOtherValue = 1;
-        } else {
-            textOtherValue = 0;
-        }
-
-        if (hairColorBValue == 1) {
-            hairColorBValue = 1;
-        } else {
-            hairColorBValue = 0;
-        }
-
-        if (hairColorOtherValue == 1) {
-            hairColorOtherValue = 1;
-        } else {
-            hairColorOtherValue = 0;
-        }
-
-        if (samplesCollectedFalseValue == 1) {
-            samplesCollectedFalseValue = 1;
-        } else {
-            samplesCollectedFalseValue = 0;
-        }
-
-        if (samplesCollectedTrueValue == 1) {
-            samplesCollectedTrueValue = 1;
-        } else {
-            samplesCollectedTrueValue = 0;
-        }
-
-        if (areaNWValue == 1) {
-            areaNWValue = 1;
-        } else {
-            areaNWValue = 0;
-        }
-
-        if (areaOtherValue == 1) {
-            areaOtherValue = 1;
-        } else {
-            areaOtherValue = 0;
-        }
-
-        if (areaSEValue == 1) {
-            areaSEValue = 1;
-        } else {
-            areaSEValue = 0;
-        }
-
-        if (areaSWValue == 1) {
-            areaSWValue = 1;
-        } else {
-            areaSWValue = 0;
-        }
-
-        if (lengthOtherValue == 1) {
-            lengthOtherValue = 1;
-        } else {
-            lengthOtherValue = 0;
-        }
-
-        if (ageatdeathAValue == 1) {
-            ageatdeathAValue = 1;
-        } else {
-            ageatdeathAValue = 0;
-        }
-
-        if (ageatdeathCValue == 1) {
-            ageatdeathCValue = 1;
-        } else {
-            ageatdeathCValue = 0;
-        }
-
-        if (ageatdeathIValue == 1) {
-            ageatdeathIValue = 1;
-        } else {
-            ageatdeathIValue = 0;
-        }
-
-        if (ageatdeathNValue == 1) {
-            ageatdeathNValue = 1;
-        } else {
-            ageatdeathNValue = 0;
-        }
-
-        if (ageatdeathOtherValue == 1) {
-            ageatdeathOtherValue = 1;
-        } else {
-            ageatdeathOtherValue = 0;
-        }
-
-        if (fieldbookexcavationyear1987BValue == 1) {
-            fieldbookexcavationyear1987BValue = 1;
-        } else {
-            fieldbookexcavationyear1987BValue = 0;
-        }
-
-        if (fieldbookexcavationyear1994BValue == 1) {
-            fieldbookexcavationyear1994BValue = 1;
-        } else {
-            fieldbookexcavationyear1994BValue = 0;
-        }
-
-        if (fieldbookexcavationyear1998Value == 1) {
-            fieldbookexcavationyear1998Value = 1;
-        } else {
-            fieldbookexcavationyear1998Value = 0;
-        }
-
-        if (fieldbookexcavationyear2005Value == 1) {
-            fieldbookexcavationyear2005Value = 1;
-        } else {
-            fieldbookexcavationyear2005Value = 0;
-        }
-
-        if (fieldbookexcavationyear2009Value == 1) {
-            fieldbookexcavationyear2009Value = 1;
-        } else {
-            fieldbookexcavationyear2009Value = 0;
-        }
-
-        if (fieldbookexcavationyearOtherValue == 1) {
-            fieldbookexcavationyearOtherValue = 1;
-        } else {
-            fieldbookexcavationyearOtherValue = 0;
-        }
-            
-
-        CallAPI(
-            squareNorthSouth150Value,
-            squareNorthSouth160Value,
-            squareNorthSouth190Value,
-            squareNorthSouth200Value,
-            squareNorthSouthOtherValue,
-            headDirectionEValue,
-            headDirectionOtherValue,
-            headDirectionWValue,
-            sexFValue,
-            sexMValue,
-            depthOtherValue,
-            eastWestWValue,
-            adultSubadultAValue,
-            adultSubadultCValue,
-            adultSubadultOtherValue,
-            preservationWValue,
-            preservationPoorlyPreservedValue,
-            preservationWrappedValue,
-            squareEastWest10Value,
-            squareEastWest20Value,
-            squareEastWest30Value,
-            squareEastWest40Value,
-            squareEastWest50Value,
-            textOtherValue,
-            hairColorBValue,
-            hairColorOtherValue,
-            samplesCollectedFalseValue,
-            samplesCollectedTrueValue,
-            areaNWValue,
-            areaOtherValue,
-            areaSEValue,
-            areaSWValue,
-            lengthOtherValue,
-            ageatdeathAValue,
-            ageatdeathCValue,
-            ageatdeathIValue,
-            ageatdeathNValue,
-            ageatdeathOtherValue,
-            fieldbookexcavationyear1987BValue,
-            fieldbookexcavationyear1994BValue,
-            fieldbookexcavationyear1998Value,
-            fieldbookexcavationyear2005Value,
-            fieldbookexcavationyear2009Value,
-            fieldbookexcavationyearOtherValue
-        )
-
-    }
-
-
-    async function CallAPI(squareNorthSouth150Value,
-        squareNorthSouth160Value,
-        squareNorthSouth190Value,
-        squareNorthSouth200Value,
-        squareNorthSouthOtherValue,
-        headDirectionEValue,
-        headDirectionOtherValue,
-        headDirectionWValue,
-        sexFValue,
-        sexMValue,
-        depthOtherValue,
-        eastWestWValue,
-        adultSubadultAValue,
-        adultSubadultCValue,
-        adultSubadultOtherValue,
-        preservationWValue,
-        preservationPoorlyPreservedValue,
-        preservationWrappedValue,
-        squareEastWest10Value,
-        squareEastWest20Value,
-        squareEastWest30Value,
-        squareEastWest40Value,
-        squareEastWest50Value,
-        textOtherValue,
-        hairColorBValue,
-        hairColorOtherValue,
-        samplesCollectedFalseValue,
-        samplesCollectedTrueValue,
-        areaNWValue,
-        areaOtherValue,
-        areaSEValue,
-        areaSWValue,
-        lengthOtherValue,
-        ageatdeathAValue,
-        ageatdeathCValue,
-        ageatdeathIValue,
-        ageatdeathNValue,
-        ageatdeathOtherValue,
-        fieldbookexcavationyear1987BValue,
-        fieldbookexcavationyear1994BValue,
-        fieldbookexcavationyear1998Value,
-        fieldbookexcavationyear2005Value,
-        fieldbookexcavationyear2009Value,
-        fieldbookexcavationyearOtherValue) {
-
-        // create a JSON object
-        var json = {
-            //id: 19140298416325990,
-            squarenorthsouth_150: squareNorthSouth150Value,
-            squarenorthsouth_160: squareNorthSouth160Value,
-            squarenorthsouth_190: squareNorthSouth190Value,
-            squarenorthsouth_200: squareNorthSouth200Value,
-            squarenorthsouth_Other: squareNorthSouthOtherValue,
-            headdirection_E: headDirectionEValue,
-            headdirection_Other: headDirectionOtherValue,
-            headdirection_W: headDirectionWValue,
-            sex_F: sexFValue,
-            sex_M: sexMValue,
-            depth_Other: depthOtherValue,
-            eastwest_W: eastWestWValue,
-            adultsubadult_A: adultSubadultAValue,
-            adultsubadult_C: adultSubadultCValue,
-            adultsubadult_Other: adultSubadultOtherValue,
-            preservation_W: preservationWValue,
-            preservation_poorly_preserved: preservationPoorlyPreservedValue,
-            preservation_wrapped: preservationWrappedValue,
-            squareeastwest_10: squareEastWest10Value,
-            squareeastwest_20: squareEastWest20Value,
-            squareeastwest_30: squareEastWest30Value,
-            squareeastwest_40: squareEastWest40Value,
-            squareeastwest_50: squareEastWest50Value,
-            text_Other: textOtherValue,
-            haircolor_B: hairColorBValue,
-            haircolor_Other: hairColorOtherValue,
-            samplescollected_false: samplesCollectedFalseValue,
-            samplescollected_true: samplesCollectedTrueValue,
-            area_NW: areaNWValue,
-            area_Other: areaOtherValue,
-            area_SE: areaSEValue,
-            area_SW: areaSWValue,
-            length_Other: lengthOtherValue,
-            ageatdeath_A: ageatdeathAValue,
-            ageatdeath_C: ageatdeathCValue,
-            ageatdeath_I: ageatdeathIValue,
-            ageatdeath_N: ageatdeathNValue,
-            ageatdeath_Other: ageatdeathOtherValue,
-            fieldbookexcavationyear_1987B: fieldbookexcavationyear1987BValue,
-            fieldbookexcavationyear_1994B: fieldbookexcavationyear1994BValue,
-            fieldbookexcavationyear_1998: fieldbookexcavationyear1998Value,
-            fieldbookexcavationyear_2005: fieldbookexcavationyear2005Value,
-            fieldbookexcavationyear_2009: fieldbookexcavationyear2009Value,
-            fieldbookexcavationyear_Other: fieldbookexcavationyearOtherValue
-        };
-
-
-
-        console.log(json);
-
-        // serialize the JSON object to a string
-        var jsonString = JSON.stringify(json);
-
-        try {
-            // send the POST request to the URL
-            const response = await fetch("https://localhost:7046/score", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: jsonString
-            });
-
-            // get the response content as a string
-            var responseString = await response.text();
-
-            // do something with the response
-            console.log(responseString);
-
-            let trimmedString = responseString.substring(19, responseString.length - 2);
-            //console.log(trimmedString);
-
-            document.getElementById("response").innerHTML = trimmedString
-        } catch (error) {
-            // handle the exception
-            console.error(error);
-        }
-    }
-
-</script>
-
-<p id="response"></p>
-
-
-@*
-=======
-<script>
-    var selectedValues = [squarenorthsouth = "", headdirection = "", sex = "", depth = "", eastwest = "",
-    adultsubadult = "", preservation = "", squareeastwest = "", text = "", haircolor = "",
-    samplescollected = "", area = "", length = "", ageatdeath = "",
-    fieldbookexcavationyear = ""];
-    $('select').change(function () {
-        var selectName = $(this).attr('name');
-        var selectedOption = $(this).val();
-        selectedValues[selectName] = selectedOption;
-    });
-</script>
->>>>>>> 46ff1dfbfcf530cb879c8e11f5dca89a6106c990*@
+    </div>
+</section>
