@@ -68,7 +68,7 @@ else
     // Add Content-Security-Policy middleware
     app.Use(async (context, next) =>
     {
-        context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'");
+        context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; img-src 'self';");
         await next();
     });
 }
