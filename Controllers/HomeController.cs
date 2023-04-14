@@ -15,26 +15,30 @@ namespace WhosYourMummy.Controllers
 {
     public class HomeController : Controller
     {
-
+        // Define private fields for repository and context
         private IMummyRepository repo;
         private MummiesDbContext context;
 
-        public HomeController(IMummyRepository temp, MummiesDbContext temp2) {
+        // Constructor that takes in the repository and context
+        public HomeController(IMummyRepository temp, MummiesDbContext temp2)
+        {
             repo = temp;
             context = temp2;
         }
 
-   
-
+        // Default action for home page
         public IActionResult Index()
         {
             return View();
         }
 
+        // Action for burials page with optional filters and pagination
         public IActionResult Burials(string sex, string year, string depth, string age, string head, string hair, string face, string wrap, string area, int page = 1)
         {
-            int pageSize = 40; // Number of items per page
+            // Define number of items per page
+            int pageSize = 40;
 
+            // Query the database for filtered data based on the given filters
             var filteredData = from bm in repo.Burialmains
                                where (bm.Sex == sex || sex == null)
                                      && (bm.Fieldbookexcavationyear == year || year == null)
@@ -47,9 +51,11 @@ namespace WhosYourMummy.Controllers
                                      && (bm.Area == area || area == null)
                                select bm;
 
+            // Count the total number of items and calculate the total number of pages based on the page size
             int totalItems = filteredData.Count();
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
+            // Join the filtered data with the textiles table and select the required fields
             var joinedData = from bm in filteredData
                              join bmt in repo.BurialmainTextiles on bm.Id equals bmt.MainBurialmainid into bmtGroup
                              from bmtLeft in bmtGroup.DefaultIfEmpty()
@@ -71,11 +77,13 @@ namespace WhosYourMummy.Controllers
                                  Wrapping = bm.Wrapping
                              };
 
+            // Sort the joined data by excavation year in descending order
             joinedData = joinedData.OrderByDescending(jd => !string.IsNullOrEmpty(jd.ExcavationYear) ? jd.ExcavationYear : "\uFFFF");
 
+            // Skip the items based on the page number and take only the number of items specified by the page size
             joinedData = joinedData.Skip((page - 1) * pageSize).Take(pageSize);
 
-
+            // Create a view model with the joined data, total number of pages, current page, and filters
             var viewModel = new BurialTextileViewModel
             {
                 JoinedData = joinedData.ToList(),
@@ -143,6 +151,7 @@ namespace WhosYourMummy.Controllers
 
                 if (originalBurialmain != null)
                 {
+                    //Bring in editable data
                     originalBurialmain.Fieldbookexcavationyear = editedBurialmain.Fieldbookexcavationyear;
                     originalBurialmain.Area = editedBurialmain.Area;
                     originalBurialmain.Sex = editedBurialmain.Sex;

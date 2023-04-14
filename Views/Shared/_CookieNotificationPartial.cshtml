@@ -3,6 +3,8 @@
     var showCookieNotification = !Context.Request.Cookies.ContainsKey("CookieConsent");
 }
 
+@*Display cookie notification for new users*@
+
 @if (showCookieNotification)
 {
     <div id="cookie-notification" class="cookie-notification">
