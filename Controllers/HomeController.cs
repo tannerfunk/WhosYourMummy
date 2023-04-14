@@ -34,24 +34,27 @@ namespace WhosYourMummy.Controllers
         public IActionResult Burials(string sex, string year, string depth, string age, string head, string hair, string face, string wrap, string area, int page = 1)
         {
             int pageSize = 40; // Number of items per page
-            int totalItems = repo.Burialmains.Count();
+
+            var filteredData = from bm in repo.Burialmains
+                               where (bm.Sex == sex || sex == null)
+                                     && (bm.Fieldbookexcavationyear == year || year == null)
+                                     && (bm.Depth == depth || depth == null)
+                                     && (bm.Ageatdeath == age || age == null)
+                                     && (bm.Headdirection == head || head == null)
+                                     && (bm.Haircolor == hair || hair == null)
+                                     && (bm.Facebundles == face || face == null)
+                                     && (bm.Wrapping == wrap || wrap == null)
+                                     && (bm.Area == area || area == null)
+                               select bm;
+
+            int totalItems = filteredData.Count();
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-            var joinedData = from bm in repo.Burialmains
+            var joinedData = from bm in filteredData
                              join bmt in repo.BurialmainTextiles on bm.Id equals bmt.MainBurialmainid into bmtGroup
                              from bmtLeft in bmtGroup.DefaultIfEmpty()
                              join t in repo.Textiles on (bmtLeft != null ? bmtLeft.MainTextileid : -1) equals t.Id into tGroup
                              from tLeft in tGroup.DefaultIfEmpty()
-                             where (bm.Sex == sex || sex == null)
-                                   && (bm.Fieldbookexcavationyear == year || year == null)
-                                   && (bm.Depth == depth || depth == null)
-                                   && (bm.Ageatdeath == age || age == null)
-                                   && (bm.Headdirection == head || head == null)
-                                   && (bm.Haircolor == hair || hair == null)
-                                   && (bm.Facebundles == face || face == null)
-                                   && (bm.Wrapping == wrap || wrap == null)
-                                   && (bm.Area == area || area == null)
-
                              select new BurialTextileData
                              {
                                  BurialId = bm.Id,
@@ -66,23 +69,32 @@ namespace WhosYourMummy.Controllers
                                  Haircolor = bm.Haircolor,
                                  FaceBundles = bm.Facebundles,
                                  Wrapping = bm.Wrapping
-
                              };
 
             joinedData = joinedData.OrderByDescending(jd => !string.IsNullOrEmpty(jd.ExcavationYear) ? jd.ExcavationYear : "\uFFFF");
 
-
             joinedData = joinedData.Skip((page - 1) * pageSize).Take(pageSize);
+
 
             var viewModel = new BurialTextileViewModel
             {
                 JoinedData = joinedData.ToList(),
                 TotalPages = totalPages,
-                CurrentPage = page
+                CurrentPage = page,
+                Sex = sex,
+                Year = year,
+                Depth = depth,
+                Age = age,
+                Head = head,
+                Hair = hair,
+                Face = face,
+                Wrap = wrap,
+                Area = area
             };
 
             return View(viewModel);
         }
+
 
         //THIS BEGINS OUR CRUD STUFF
 

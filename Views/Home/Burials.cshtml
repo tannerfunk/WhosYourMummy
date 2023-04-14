@@ -105,7 +105,18 @@
             @for (int i = 1; i <= Model.TotalPages; i++)
             {
                 <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-action="Burials" asp-route-page="@i">@i</a>
+                    <a class="page-link" asp-action="Burials" asp-route-page="@i"
+                   asp-route-sex="@Model.Sex"
+                   asp-route-year="@Model.Year"
+                   asp-route-depth="@Model.Depth"
+                   asp-route-age="@Model.Age"
+                   asp-route-head="@Model.Head"
+                   asp-route-hair="@Model.Hair"
+                   asp-route-face="@Model.Face"
+                   asp-route-wrap="@Model.Wrap"
+                   asp-route-area="@Model.Area">
+                        @i
+                    </a>
                 </li>
             }
         </ul>
