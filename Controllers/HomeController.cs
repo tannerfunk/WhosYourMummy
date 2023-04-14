@@ -146,6 +146,15 @@ namespace WhosYourMummy.Controllers
                     originalBurialmain.Fieldbookexcavationyear = editedBurialmain.Fieldbookexcavationyear;
                     originalBurialmain.Area = editedBurialmain.Area;
                     originalBurialmain.Sex = editedBurialmain.Sex;
+                    originalBurialmain.Depth = editedBurialmain.Depth;
+                    originalBurialmain.Ageatdeath = editedBurialmain.Ageatdeath;
+                    originalBurialmain.Headdirection = editedBurialmain.Headdirection;
+                    originalBurialmain.Haircolor = editedBurialmain.Haircolor;
+                    originalBurialmain.Facebundles = editedBurialmain.Facebundles;
+                    originalBurialmain.Wrapping = editedBurialmain.Wrapping;
+                    originalBurialmain.Text = editedBurialmain.Text;
+                    originalBurialmain.Samplescollected = editedBurialmain.Samplescollected;
+                    originalBurialmain.Burialnumber = editedBurialmain.Burialnumber;
                     // Update other fields as necessary
 
                     repo.SaveChanges();
