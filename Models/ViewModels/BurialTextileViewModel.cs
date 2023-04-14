@@ -6,6 +6,7 @@
         public IQueryable<Burialmain> Burialmains { get; set; }
         public IQueryable<BurialmainTextile> BurialmainTextiles { get; set; }
         public IQueryable<Textile> Textiles { get; set; }
+        public string Id { get; set; }
         public string Sex { get; set; }
         public string Year { get; set; }
         public string Depth { get; set; }
